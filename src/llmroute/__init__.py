@@ -65,6 +65,8 @@ def load_config(path):
         for key in ("name", "base_url", "model"):
             if not ep.get(key):
                 die(f"{path}: endpoint missing required key {key!r}")
+            if not isinstance(ep[key], str):
+                die(f"{path}: endpoint key {key!r} must be a string, got {type(ep[key]).__name__}")
         ep["base_url"] = ep["base_url"].rstrip("/")
         ep.setdefault("tags", [])
         ep.setdefault("price_in", None)
